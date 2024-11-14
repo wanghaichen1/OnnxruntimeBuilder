@@ -257,6 +257,7 @@ python $PSScriptRoot\tools\ci_build\build.py `
 	--parallel `
 	--skip_tests `
 	--compile_no_warning_as_error `
+ 	--use_openvino "AUTO:CPU,GPU" `
 	--cmake_generator $VsFlag `
 	$StaticCrtFlag `
 	--cmake_extra_defines CMAKE_INSTALL_PREFIX=./install onnxruntime_BUILD_UNIT_TESTS=OFF
