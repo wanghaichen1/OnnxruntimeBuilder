@@ -11,7 +11,7 @@ jobs:
         ver:
           - { onnx: v1.18.1, python: 3.8.10, jdk: 11, gradle: 8.6 }
         list:
-          - { win_ver: 2019, vs_name: vs2019, vs_ver: v142, vs_path: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise' }
+          - { win_ver: 2022, vs_name: vs2022, vs_ver: v142, vs_path: 'C:\Program Files\Microsoft Visual Studio\2022\Enterprise' }
         arch:
           [
             x64,
