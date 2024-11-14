@@ -212,14 +212,7 @@ switch ($VsArch)
     }
 }
 
-if ($VsVer -eq "v143")
-{
-    $VsFlag = 'Visual Studio 17 2022'
-}
-else
-{
-    $VsFlag = 'Visual Studio 16 2019'
-}
+$VsFlag = 'Visual Studio 17 2022'
 
 if ($VsCRT -eq "mt")
 {
