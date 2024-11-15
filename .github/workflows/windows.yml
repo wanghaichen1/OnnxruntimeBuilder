@@ -125,7 +125,7 @@ jobs:
         with:
           prerelease: false
           bodyFile: release.md
-          artifacts: artifacts/*/*.7z
+          artifacts: "*.7z"
           allowUpdates: true
           artifactContentType: application/x-7z-compressed
           token: ${{ secrets.GITHUB_TOKEN }}
