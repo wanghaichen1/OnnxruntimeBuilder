@@ -15,7 +15,6 @@ jobs:
         arch:
           [
             x64,
-            x86,
           ]
         crt:
           [
