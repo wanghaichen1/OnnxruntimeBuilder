@@ -60,6 +60,13 @@ jobs:
       - name: build
         shell: powershell
         run: |
+          
+          wget https://storage.openvinotoolkit.org/repositories/openvino/packages/2024.4/windows/w_openvino_toolkit_windows_2024.4.0.16579.c3152d32c9c_x86_64.zip -O openvino.zip
+          Expand-Archive -Path openvino.zip -DestinationPath .\
+          $env:INTEL_OPENVINO_DIR += ";$PWD\\w_openvino_toolkit_windows_2024.4.0.16579.c3152d32c9c_x86_64\\"
+          
+          $INTEL_OPENVINO_DIR\\setupvars.ps1
+
           cd onnxruntime-${{ matrix.ver.onnx }}
           if ("${{ matrix.arch }}" -eq "x64" )
           {
@@ -70,6 +77,34 @@ jobs:
             & '.\Launch-VsDevShell.ps1' -VsInstallationPath '${{ matrix.list.vs_path }}' -SkipAutomaticLocation -HostArch amd64 -Arch ${{ matrix.arch }}
           }
           .\${{ env.BUILD_SCRIPT }} -VsArch ${{ matrix.arch }} -VsVer ${{ matrix.list.vs_ver }} -VsCRT ${{ matrix.crt }} 
+          
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_c.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_intel_cpu_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_intel_gpu_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_onnx_frontend.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_auto_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_auto_batch_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_ir_frontend.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_hetero_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbb12.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbmalloc.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbmalloc_proxy.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbbind_2_5.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install\\lib\\
+
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_c.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_intel_cpu_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_intel_gpu_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_onnx_frontend.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_auto_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_auto_batch_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_ir_frontend.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\bin\\intel64\\Release\\openvino_hetero_plugin.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbb12.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbmalloc.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbmalloc_proxy.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
+          cp $INTEL_OPENVINO_DIR\\runtime\\3rdparty\\tbb\\bin\\tbbbind_2_5.dll build-${{ matrix.arch }}-${{ matrix.list.vs_ver }}-${{ matrix.crt }}\\Release\\install-static\\lib\\
 
       # install文件夹改名，并使用7z压缩
       - name: 7zip pack shared libs
