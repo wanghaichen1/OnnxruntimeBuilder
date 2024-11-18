@@ -120,6 +120,7 @@ function CollectLibs
         Remove-Item -Path "install-static\include" -Force -Recurse
     }
     Copy-Item -Path "install\include" -Destination "install-static\include" -Recurse
+    Copy-Item -Path "install\bin" -Destination "install-static\bin" -Recurse
 
     # 调用 GetLibsList 函数
     GetLibsList
