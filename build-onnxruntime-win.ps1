@@ -67,14 +67,7 @@ function GetFileName
 #调用这个函数来检查 lib.exe 是否存在
 function CheckLibexeExists
 {
-    if (Get-Command lib.exe -errorAction SilentlyContinue)
-    {
-        return $True
-    }
-    else
-    {
-        return $False
-    }
+    return $False
 }
 
 function GetLibsList
